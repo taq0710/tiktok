@@ -18,11 +18,11 @@
     align-items: center;
     justify-content: space-between;
 }
-.logo {
+.search, .search-result{
+    width:361px;
 }
 .search {
     position: relative;
-    width: 361px;
     height: var(--search-hight);
     padding-left: 16px;
     display: flex;
@@ -53,6 +53,15 @@
     &:focus-within{
         border-color:  rgba(22, 24, 35, 0.2);
     }
+}
+.search-result{
+    padding-top: 8px;
+}
+.search-title{
+    padding: 5px 12px;
+    font-size: 1.4rem;
+    width: 600;
+    color: rgba(22, 24, 35, 0.5);
 }
 
 .clear ,
