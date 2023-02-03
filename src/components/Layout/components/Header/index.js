@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleXmark,
+    faSpinner,
+    faEllipsisVertical,
+    faMagnifyingGlass,
+    faPlusCircle,
+    faEarthAsia,
+    faCircleQuestion,
+    faKeyboard,
+} from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 
 import Button from '~/components/Button';
@@ -9,10 +18,23 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
-
+import Menu from '~/components/Popper/Menu';
 
 const cx = classNames.bind(styles);
-
+const MENU_ITEMS = [
+    {
+        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        title: 'English',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'Feedback and Help',
+        to: '/feedback'
+    },    {
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        title: 'Keyboard Shortcuts',
+    },
+];
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
     useEffect(() => {
@@ -52,9 +74,15 @@ function Header() {
                     </div>
                 </Tippy>
                 <div className={cx('actions')}>
-                    <Button text leftIcon={<FontAwesomeIcon icon={faPlusCircle}/>}>Upload</Button>
+                    <Button text leftIcon={<FontAwesomeIcon icon={faPlusCircle} />}>
+                        Upload
+                    </Button>
                     <Button primary>Log in</Button>
-                    
+                    <Menu items={MENU_ITEMS}>
+                        <button className={cx('more-btn')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header>
