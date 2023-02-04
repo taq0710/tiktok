@@ -13,8 +13,7 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
-    const [showResult, setShowResult] = useState(true)
-
+    const [showResult, setShowResult] = useState(true);
 
     const inputRef = useRef();
     useEffect(() => {
@@ -25,11 +24,12 @@ function Search() {
 
     const handleClear = () => {
         setSearchValue('');
+        setSearchResult([]);
         inputRef.current.focus();
-    }
-    const handleHideResult = ()=>{
-        setShowResult(false)
-    }
+    };
+    const handleHideResult = () => {
+        setShowResult(false);
+    };
     return (
         <HeadlessTippy
             interactive
@@ -54,13 +54,10 @@ function Search() {
                     placeholder="Search accounts and videos"
                     spellCheck={false}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus = {()=> setShowResult(true)}
+                    onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && (
-                    <button
-                        className={cx('clear')}
-                        onClick={handleClear}
-                    >
+                    <button className={cx('clear')} onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
