@@ -25,12 +25,26 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
         title: 'Feedback and Help',
-        to: '/feedback'
-    },    {
+        to: '/feedback',
+    },
+    {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Keyboard Shortcuts',
     },
