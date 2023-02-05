@@ -6,8 +6,10 @@ import MenuItem from './MenuItem';
 import Header from './Header';
 import styles from './Menu.module.scss';
 import { useState } from 'react';
+
+const defaultFn = () => {};
 const cx = classNames.bind(styles);
-function Menu({ children, items = [], onChange }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
     const renderItems = () => {
@@ -33,6 +35,7 @@ function Menu({ children, items = [], onChange }) {
             interactive
             offset={[12, 8]}
             delay={[0, 700]}
+            hideOnClick={hideOnClick}
             placement="bottom-end"
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+
+import * as searchServices from '~/apiServices/searchServices';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { SearchIcon } from '~/components/Icons';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -18,7 +19,7 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const debounced = useDebounce(searchValue, 500)
+    const debounced = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
     useEffect(() => {
@@ -26,22 +27,13 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
-
-        axios.get(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`, {
-            params: {
-                q: debounced,
-                type:'less'
-            }
-        })
-            .then((res) => {
-                console.log(res)
-                // setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
+        const fetchApi = async () => {
+            setLoading(true);
+            const result = await searchServices.search(debounced);
+            setSearchResult(result);
+            setLoading(false);
+        };
+        fetchApi();
     }, [debounced]);
 
     const handleClear = () => {
@@ -52,6 +44,17 @@ function Search() {
     const handleHideResult = () => {
         setShowResult(false);
     };
+
+// logic không cho nhấn space trong input
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            
+            setSearchValue(searchValue);
+        }
+
+    };
+    
     return (
         <HeadlessTippy
             interactive
@@ -74,7 +77,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search accounts and videos"
                     spellCheck={false}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleChange}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && !loading && (
@@ -83,7 +86,7 @@ function Search() {
                     </button>
                 )}
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={e => e.preventDefault()}> 
                     <SearchIcon />
                 </button>
             </div>

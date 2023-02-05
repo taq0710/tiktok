@@ -12,6 +12,7 @@
     border: 1.5px solid transparent;
 
     input {
+        font-family: var(--font-family);
         caret-color: var(--primary);
         flex: 1;
         height: 100%;
