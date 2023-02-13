@@ -9,6 +9,9 @@
 .menu-popper {
     padding: 8px 0;
 }
+.menu-body{
+    overflow-y: auto;
+}
 //menuitem
 .menu-item {
     width: 100%;
@@ -29,6 +32,7 @@
     position: relative;
     height: 50px;
     margin-top: -8px;
+    flex-shrink: 0
 }
 .back-btn {
     width: 50px;

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchServices from '~/services/searchServices';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { SearchIcon } from '~/components/Icons';
 import HeadlessTippy from '@tippyjs/react/headless';
